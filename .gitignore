@@ -1,0 +1,7 @@
+# Recompiled JS Scripts
+js/dist
+
+# Visual studio code
+.vscode/
+
+exemple.json

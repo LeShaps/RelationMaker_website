@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script type="text/javascript" src="js/networkmaker.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="icon" href="img/relmaker_icon.png">
+
+    <meta charset="UTF-8">
+    <title>Relation visualiser</title>
+    <meta name="description" content="A visualiser to quickly see relation between characters">
+</head>
+
+<body>
+    <div id="relation-network" class="relation-graph"></div>
+    <textarea id="TempJson" name="Json" rows=12 cols="55">Enter here the character's json...</textarea>
+    <button id="loader" name="load" onclick="loadJson()">Load</button>
+
+<script type="text/javascript">
+    function loadJson() {
+        console.log("Entered here");
+        var Json = document.getElementById("TempJson").value;
+        CreateNodesFromJson(Json);
+    }
+    /*
+    var nodes = new vis.DataSet([
+        {id: 1, label: 'Node 1'},
+        {id: 2, label: 'Node 2'},
+        {id: 3, label: 'Node 3'},
+        {id: 4, label: 'Node 4'},
+        {id: 5, label: 'Node 5'}
+    ]);
+
+    var edgets = new vis.DataSet([
+        {from: 1, to: 3},
+        {from: 1, to: 2},
+        {from: 1, to: 4},
+        {from: 1, to: 5},
+        {from: 1, to: 6}
+    ]);
+
+    var container = document.getElementById('relation-network');
+
+    var data = {
+        nodes: nodes,
+        edges: edgets
+    };
+    var options = {};
+
+    var network = new vis.Network(container, data, options);
+    */
+</script>
+</body>

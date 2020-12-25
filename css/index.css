@@ -1,0 +1,31 @@
+:root {
+  font-size: 30px;
+}
+
+* {
+  margin: 0;
+}
+
+.relation-graph {
+  margin-top: 8rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8rem;
+  width: 90vw;
+  height: 90vh;
+  border: 1px solid #686666;
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f7f7;
+  border: solid 80px transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3c3aa1;
+  border: solid 30px transparent;
+}

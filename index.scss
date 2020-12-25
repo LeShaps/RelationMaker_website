@@ -1,0 +1,37 @@
+$brosiscolor: #2cc434;
+$font-size: 30px;
+$primary-background-color: hsl(0, 0%, 97%);
+$ui-color: #3c3aa1;
+
+:root {
+    font-size: $font-size;
+}
+
+* {
+    margin: 0;
+}
+
+.relation-graph {
+    margin-top: 8rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8rem;
+    width: 90vw;
+    height: 90vh;
+
+    border: 1px solid rgb(104, 102, 102);
+}
+
+::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: $primary-background-color;
+    border: solid 80px transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: $ui-color;
+    border: solid 30px transparent;
+  }
