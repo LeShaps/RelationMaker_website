@@ -58,8 +58,6 @@ function CreateMotherNode(rJson) {
 
 function CreateRelationlinkFromNode(RelationObject, Mothernode) {
     for (var Character in RelationObject["Peoples"]) {
-        console.log(RegisteredNodes[RelationObject["Peoples"][Character]]);
-        console.log(Mothernode);
         edgets.add([
             {from: RegisteredNodes[RelationObject["Peoples"][Character]], to: Mothernode,
             color: {color: RelationObject.Color, highlight: RelationObject.HighlightColor}}
