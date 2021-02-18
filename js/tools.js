@@ -34,3 +34,11 @@ function CheckJsoncompletion(json, categories) {
     }
     return true;
 }
+
+function IsEmptyOrUndefined(check) {
+    if (check === "" || check === undefined) {
+        return true;
+    } else {
+        return false;
+    }
+}

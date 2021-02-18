@@ -3,6 +3,10 @@ var RelTypeName = document.getElementById('RelationNameZone');
 var JsonToMake = {};
 
 function AddRelation() {
+    if (RelationExist(RelTypeName.value) || IsEmptyOrUndefined(RelTypeName.value)) {
+        return;
+    }
+
     let Relation = CreateRelationZone(RelTypeName.value);
 
     RelZone.insertAdjacentElement('afterend', Relation);
@@ -31,10 +35,13 @@ function AddCharacterToList() {
     let RelationPut = this.parentNode;
 
     let Button = CreateElem('character-add', 'button', 'CharacterAdd', {innerHTML: 'Add Character'});
+    Button.addEventListener('click', AddCharacterToList);
 
     this.remove();
 
-    CreateZone(RelationPut, [NInput, Button]);
+    RelationPut.insertAdjacentElement('beforeend', NInput);
+    RelationPut.insertAdjacentElement('beforeend', document.createElement('br'));
+    RelationPut.insertAdjacentElement('beforeend', Button);
 }
 
 /* Utilities */
@@ -51,10 +58,14 @@ function CreateElem(Name, Elem, Class, ParamList = {}) {
 }
 
 function CreateZone(zone, elemlist) {
+    let LastBr;
+
     elemlist.forEach(element => {
         zone.insertAdjacentElement('beforeend', element);
-        zone.insertAdjacentElement('beforeend', document.createElement('br'));        
+        LastBr = zone.insertAdjacentElement('beforeend', document.createElement('br'));
     });
+
+    LastBr.remove();
 }
 
 function CreateRelationObject(Tab) {
@@ -71,6 +82,10 @@ function CreateRelationObject(Tab) {
     NewRelation.Peoples = [];
 
     for (let i = 0; i < Characters.length; i++) {
+
+        if (IsEmptyOrUndefined(Characters.item(i))) {
+            continue;
+        }
         NewRelation.Peoples.push(Characters.item(i).value);
     }
     
@@ -80,8 +95,14 @@ function CreateRelationObject(Tab) {
 function CreateJsonFromInfos() {
     JsonToMake = {};
 
-    let AllZones = document.getElementById('Relation');
+    let AllZones = document.getElementsByClassName('Relation');
     JsonToMake.Name = document.getElementById('MainCharacterName').value;
+
+    if (IsEmptyOrUndefined(JsonToMake.Name)) {
+        console.error("Can't create a json without name");
+        return;
+    }
+
     JsonToMake.Relations = [];
 
     for (let i = 0; i < AllZones.length; i++) {
@@ -91,4 +112,16 @@ function CreateJsonFromInfos() {
     }
 
     console.log(JsonToMake);
+}
+
+function RelationExist(RelationName) {
+    let AllZones = document.getElementsByClassName('Relation');
+
+    for (let i = 0; i < AllZones.length; i++) {
+        if (AllZones.item(i).getElementsByClassName('RelationName')[0].innerHTML === RelationName) {
+            return true;
+        }
+    }
+
+    return false;
 }
