@@ -74,9 +74,7 @@ function CreateRelationObject(Tab) {
     let Characters = Tab.getElementsByClassName('CharacName');
     let ColorBase = Tab.getElementsByClassName('ColorPickBase');
     let ColorHigh = Tab.getElementsByClassName('ColorPickHigh');
-    let RelationName = Tab.getElementsByClassName('RelationName');
 
-    NewRelation.Name = RelationName[0].innerText;
     NewRelation.Color = ColorBase[0].value;
     NewRelation.HighlightColor = ColorHigh[0].value;
     NewRelation.Peoples = [];
@@ -103,15 +101,17 @@ function CreateJsonFromInfos() {
         return;
     }
 
-    JsonToMake.Relations = [];
+    JsonToMake.Relations = {};
 
     for (let i = 0; i < AllZones.length; i++) {
-        JsonToMake.Relations.push(
-            CreateRelationObject(AllZones.item(i))
-        );
+        JsonToMake.Relations[GetZoneName(AllZones.item(i))] = CreateRelationObject(AllZones.item(i))
     }
 
-    console.log(JsonToMake);
+    DonwloadFile(JsonToMake.Name + ".json", 'application/json;charset=utf-8', JsonToMake);
+}
+
+function GetZoneName(Tab) {
+    return Tab.getElementsByClassName('RelationName').innerText;
 }
 
 function RelationExist(RelationName) {
@@ -124,4 +124,19 @@ function RelationExist(RelationName) {
     }
 
     return false;
+}
+
+function DonwloadFile(Filename, type, FileData) {
+    
+    let blob1 = new Blob([JSON.stringify(FileData, null, 2)], {type: type});
+    console.log(blob1);
+
+    let url = window.URL || window.webkitURL;
+    link = url.createObjectURL(blob1);
+    let a = document.createElement('a');
+    a.download = Filename;
+    a.href = link;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
