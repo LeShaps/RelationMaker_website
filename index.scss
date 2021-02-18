@@ -22,6 +22,32 @@ $ui-color: #3c3aa1;
     border: 1px solid rgb(104, 102, 102);
 }
 
+@-webkit-keyframes fadein {
+  from: { opacity: 0; }
+  to: { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+  from: { opacity: 0; }
+  to: { opacity: 1; }
+}
+
+@keyframes fadein {
+  from: { opacity: 0; }
+  to: { opacity: 1; }
+}
+
+.drop-zone {
+  position: fixed; top: 0; left: 0;
+  z-index: 1000;
+  width: 100%; height: 100%;
+  background-color: rgba($color: (#000000), $alpha: 0.5);
+  transition: visibility 175ms, opacity 175ms;
+  -webkit-animation: fadein 2s ease-in alternate infinite;
+  -moz-animation: fadein 2s ease-in alternate infinite;
+}
+
+
 ::-webkit-scrollbar {
     width: 0.25rem;
   }

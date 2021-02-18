@@ -25,3 +25,12 @@ function GetJsonSection(json, path) {
 
     return temporary;
 }
+
+function CheckJsoncompletion(json, categories) {
+    for (var x in categories) {
+        if (GetJsonSection(json, x) === undefined) {
+            return false;
+        }
+    }
+    return true;
+}

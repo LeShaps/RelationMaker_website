@@ -3,24 +3,40 @@
 <head>
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script type="text/javascript" src="js/networkmaker.js"></script>
-
+    
     <link rel="stylesheet" href="css/index.css">
     <link rel="icon" href="img/relmaker_icon.png">
-
+    
     <meta charset="UTF-8">
     <title>Relation visualiser</title>
     <meta name="description" content="A visualiser to quickly see relation between characters">
 </head>
 
 <body>
+    <h2>Click F2 to start uploading files</h2>
     <div id="relation-network" class="relation-graph"></div>
-    <textarea id="TempJson" name="Json" rows=12 cols="55">Enter here the character's json...</textarea>
-    <button id="loader" name="load" onclick="loadJson()">Load</button>
+    <div style="opacity: 0; display: none;" class="drop-zone" id="dropArea"></div>
+</body>
 
-<script type="text/javascript">
-    function loadJson() {
-        var Json = document.getElementById("TempJson").value;
-        CreateNodesFromJson(Json);
+<footer>
+    <script type="text/javascript" src="js/relationloader.js"></script>
+</footer>
+
+<script>
+    let RelGraph = document.getElementById('relation-network');
+
+    RelGraph.onpaste = HandlePaste;
+
+    function HandlePaste(e) {
+        ReadClipboard(e);
+    }
+
+    async function ReadClipboard(e) {
+        try {
+            let text = await navigator.clipboard.readText();
+            console.log(text);
+        } catch (error) {
+            console.error(error);
+        }
     }
 </script>
-</body>

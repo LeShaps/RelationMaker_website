@@ -1,5 +1,6 @@
 var nodes = new vis.DataSet([]);
 var edgets = new vis.DataSet([]);
+var RegisteredRelations = {};
 
 var RegisteredNodes = {};
 var DefaultImage = "https://none.com/vincent.png";
