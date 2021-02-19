@@ -46,7 +46,6 @@ dropArea.addEventListener('drop', function (e)
     console.log('Dropped into');
     e.preventDefault();
 
-    console.log('Start processing file');
     var dt = e.dataTransfer;
     var files = dt.files;
 
@@ -63,14 +62,28 @@ function preventDefaults(e) {
 function HandleFiles(files) {
     files = [...files]
     files.forEach(ReadJson)
-
 }
 
 function ReadJson(file) {
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onloadend = function() {
-        console.log(reader.result);
         CreateNodesFromJson(reader.result);
+        CreateHelper(reader.result);
+    }
+}
+
+function CreateHelper(json) {
+    let HelpZone = document.getElementById('chart');
+
+    let rjson = JSON.parse(json);
+     
+    for (let item in rjson.Relations) {
+        let NColorPick = CreateElem('Colorhelp', 'input', 'Colorhelper', {type: "color", value: rjson.Relations[item].Color});
+        let NText = CreateElem('TextHelp', 'h5', 'Texthelper', {innerText: item});
+
+        HelpZone.insertAdjacentElement('beforeend', NColorPick);
+        HelpZone.insertAdjacentElement('beforeend', NText);
+        HelpZone.insertAdjacentElement('beforeend', document.createElement('br'));
     }
 }

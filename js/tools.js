@@ -42,3 +42,27 @@ function IsEmptyOrUndefined(check) {
         return false;
     }
 }
+
+/* HTML Editing Utilities */
+function CreateElem(Name, Elem, Class, ParamList = {}) {
+    let NewElem = document.createElement(Elem);
+    NewElem.id = Name;
+    NewElem.className = Class;
+
+    for (let param in ParamList) {
+        NewElem[param] = ParamList[param];
+    }
+
+    return NewElem;
+}
+
+function CreateZone(zone, elemlist) {
+    let LastBr;
+
+    elemlist.forEach(element => {
+        zone.insertAdjacentElement('beforeend', element);
+        LastBr = zone.insertAdjacentElement('beforeend', document.createElement('br'));
+    });
+
+    LastBr.remove();
+}
