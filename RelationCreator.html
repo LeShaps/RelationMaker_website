@@ -3,7 +3,7 @@
 <head>
     <title>Character Relation Creator</title>
     <meta name="description" content="Create a character's relation json from here!" />
-    <meta name="encoding" content="UTF-8" />
+    <meta charset="utf-8"/>
     <link rel="icon" href="img/relmaker_icon.png">
     <script type="text/javascript" src="js/tools.js"></script>
 </head>
@@ -17,8 +17,14 @@
     <br />
     <button id="AddRelation" onclick="AddRelation()">Create relation type</button>
     <input id="RelationNameZone" placeholder="Relation Type">
+    <br>
+    <br>
+    <button onclick="document.getElementById('file-input').click();">Upload</button>
+    <input id='file-input' type="file" name="character" style="display: none;" onchange="OnInputChange(event)"/>
+    </div>
 </body>
 
 <footer>
     <script type="text/javascript" src="js/relationjsoncreator.js"></script>
+    <script type="text/javascript" src="js/characterloader.js"></script>
 </footer>

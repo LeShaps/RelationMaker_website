@@ -12,7 +12,8 @@ function AddRelation() {
     RelZone.insertAdjacentElement('afterend', Relation);
 }
 
-function CreateRelationZone(ZoneName) {
+function CreateRelationZone(ZoneName, BaseCharacter = true) {
+    let charlist = CreateCharacterUL(BaseCharacter);
     let NewRelationZone = CreateElem('Relation-zone', 'div', 'Relation');
 
     let Title = CreateElem(ZoneName, 'h3', 'RelationName', {innerHTML: ZoneName});
@@ -24,28 +25,49 @@ function CreateRelationZone(ZoneName) {
     let Button = CreateElem('character-add', 'button', 'CharacterAdd', {innerHTML: "Add Character"});
     Button.addEventListener('click', AddCharacterToList);
 
+    let DelButtn = CreateElem('section-delete', 'button', 'SectionDelete', {innerHTML: "Delete relation type"});
+    DelButtn.addEventListener('click', DeleteSection);
+
     CreateZone(NewRelationZone,
-        [Title, ColorPickBase, ColorPickHighlight, CharacName, Button]);
+        [Title, ColorPickBase, ColorPickHighlight, charlist, Button, DelButtn]);
 
     return NewRelationZone;
 }
 
 function AddCharacterToList() {
-    let NInput = CreateElem('Charac', 'input', 'CharacName', {placeholder: "Character name"});
     let RelationPut = this.parentNode;
+    let CharacterRelationList = RelationPut.getElementsByClassName('Charlist')[0];
+    
+    AddCharacterToUL(CharacterRelationList);
+}
 
-    let Button = CreateElem('character-add', 'button', 'CharacterAdd', {innerHTML: 'Add Character'});
-    Button.addEventListener('click', AddCharacterToList);
+function CreateCharacterUL(AddBaseCharac) {
+    let CharacterList = CreateElem('character-list', 'ul', 'Charlist', {style: "list-style-type: none", innerText: "Peoples"});
 
-    this.remove();
+    let ListPart = document.createElement('li');
+    if (AddBaseCharac) {
+        let CharacterInput = CreateElem('charac-input', 'input', 'CharacName', {placeholder: "Character's name"});
 
-    RelationPut.insertAdjacentElement('beforeend', NInput);
-    RelationPut.insertAdjacentElement('beforeend', document.createElement('br'));
-    RelationPut.insertAdjacentElement('beforeend', Button);
+        ListPart.appendChild(CharacterInput);
+    }
+    CharacterList.appendChild(ListPart);
+
+    return CharacterList;
+}
+
+function AddCharacterToUL(CharList, CharacterName = undefined) {
+    let ListPart = document.createElement('li');
+    let CharacterInput = CreateElem('charac-input', 'input', 'CharacName', {placeholder: "Character's name"});
+
+    if (CharacterName !== undefined) {
+        CharacterInput.value = CharacterName;
+    }
+
+    ListPart.appendChild(CharacterInput);
+    CharList.appendChild(ListPart);
 }
 
 /* Utilities */
-
 function CreateRelationObject(Tab) {
     let NewRelation = {};
 
@@ -59,7 +81,7 @@ function CreateRelationObject(Tab) {
 
     for (let i = 0; i < Characters.length; i++) {
 
-        if (IsEmptyOrUndefined(Characters.item(i))) {
+        if (IsEmptyOrUndefined(Characters.item(i).value)) {
             continue;
         }
         NewRelation.Peoples.push(Characters.item(i).value);
@@ -89,7 +111,7 @@ function CreateJsonFromInfos() {
 }
 
 function GetZoneName(Tab) {
-    return Tab.getElementsByClassName('RelationName').innerText;
+    return Tab.getElementsByClassName('RelationName')[0].innerText;
 }
 
 function RelationExist(RelationName) {
@@ -117,4 +139,8 @@ function DonwloadFile(Filename, type, FileData) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+}
+
+function DeleteSection() {
+    this.parentNode.remove();
 }
